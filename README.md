@@ -12,9 +12,11 @@ docker pull docker.elastic.co/kibana/kibana:8.1.0
 docker run --name kib-01 --net mynetwork -p 5601:5601 docker.elastic.co/kibana/kibana:8.1.0
 ```
 
-It might be necessary to open Elasticsearch container and copy/paste or manually generate the token to use in Kibana and username/password to use in API calls
-
-
+It might be necessary to open Elasticsearch container and copy/paste or manually generate/reset after the first run:
+1. The enrollment token to use in Kibana. 
+Can be generated with `bin/elasticsearch-create-enrollment-token --scope kibana`
+2. Username/password to use in API calls
+Can be generated with `bin/elasticsearch-reset-password -u username`
 
 
 ## Testing
