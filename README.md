@@ -1,5 +1,9 @@
 # es-ilm-demo
 
+## Info
+
+This demo app represents the ILM policy configuration for hot-warm-delete index lifecycle.
+
 ## Setup
 
 You will need Elasticsearch 8.1.0 and Kibana docker images:
