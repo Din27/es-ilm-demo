@@ -4,7 +4,7 @@
       "hot": {
         "actions": {
           "rollover": {
-            "max_age": "20s"
+            "max_age": "30s"
           }
         }
       },
@@ -14,7 +14,7 @@
         }
       },
       "delete": {
-        "min_age": "1m",
+        "min_age": "30s",
         "actions": {
           "delete": {}
         }
