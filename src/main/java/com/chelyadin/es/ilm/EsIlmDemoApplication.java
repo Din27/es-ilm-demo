@@ -48,8 +48,13 @@ public class EsIlmDemoApplication {
     SpringApplication.run(EsIlmDemoApplication.class, args);
 
     try (RestClient client = buildEsHttpsClient()) {
+      // create ILM policy
       sendRequest(HttpMethod.PUT.toString(), URL_ILM_POLICY, getIlmPolicy(), client);
+
+      // create index template which will be used on each index creation during each rollover
       sendRequest(HttpMethod.PUT.toString(), URL_INDEX_TEMPLATE, getIndexTemplate(), client);
+
+      // add a first document to create the index and start the process
       sendRequest(HttpMethod.POST.toString(), URL_DOCUMENT, getDocument(), client);
     } catch (Exception e) {
       throw new RuntimeException(e);
