@@ -5,12 +5,18 @@
         "actions": {
           "rollover": {
             "max_age": "6h"
+          },
+          "set_priority": {
+            "priority": 100
           }
         }
       },
       "warm": {
         "actions": {
-          "readonly": {}
+          "readonly": {},
+          "set_priority": {
+            "priority": 50
+          }
         }
       },
       "delete": {
