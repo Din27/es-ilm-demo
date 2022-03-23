@@ -1,5 +1,7 @@
 package com.chelyadin.es.ilm.config;
 
+import com.chelyadin.es.ilm.config.properties.EsProperties;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.apache.http.conn.ssl.TrustAllStrategy;
 import org.apache.http.ssl.SSLContextBuilder;
@@ -14,13 +16,10 @@ import org.springframework.data.elasticsearch.config.AbstractElasticsearchConfig
 import javax.net.ssl.SSLContext;
 
 @Configuration
-public class ReactiveRestClientConfig extends AbstractElasticsearchConfiguration {
+@RequiredArgsConstructor
+public class EsHighLevelClientConfig extends AbstractElasticsearchConfiguration {
 
-  // TODO move to properties
-  private static final String ES_HOST = "localhost";
-  private static final int ES_PORT = 9200;
-  private static final String ES_USERNAME = "elastic";
-  private static final String ES_PASSWORD = "WpEpXcISkYJ_6*cDyyN+";
+  private final EsProperties esProperties;
 
   @SneakyThrows
   @Override
@@ -31,9 +30,9 @@ public class ReactiveRestClientConfig extends AbstractElasticsearchConfiguration
     final SSLContext sslContext = sslBuilder.build();
 
     final ClientConfiguration clientConfiguration = ClientConfiguration.builder()
-        .connectedTo(ES_HOST + ":" + ES_PORT)
+        .connectedTo(esProperties.getHost() + ":" + esProperties.getPort())
         .usingSsl(sslContext)
-        .withBasicAuth(ES_USERNAME, ES_PASSWORD) // put your credentials
+        .withBasicAuth(esProperties.getUsername(), esProperties.getPassword()) // put your credentials
         .build();
     return RestClients.create(clientConfiguration).rest();
   }

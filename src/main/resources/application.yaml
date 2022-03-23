@@ -1,0 +1,13 @@
+logging:
+  level:
+    com.chelyadin.es.ilm: DEBUG
+
+
+es:
+  host: localhost
+  port: 9200
+  username: elastic
+  password: WpEpXcISkYJ_6*cDyyN+
+  ilm:
+    hotDuration: 20s # max_age before Rollover action of hot phase
+    warmDuration: 20s # min_age before Delete action after Rollover to warm phase
