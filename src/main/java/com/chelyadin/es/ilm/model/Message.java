@@ -8,7 +8,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -18,6 +18,6 @@ public class Message {
   private String id;
   @Field(type = FieldType.Text)
   private String message;
-  @Field(type = FieldType.Date, format = DateFormat.date_hour_minute_second)
-  private LocalDateTime timestamp = LocalDateTime.now();
+  @Field(name = "@timestamp", type = FieldType.Date, format = DateFormat.epoch_millis)
+  private Date timestamp; // TODO add or write localdatetime converter
 }

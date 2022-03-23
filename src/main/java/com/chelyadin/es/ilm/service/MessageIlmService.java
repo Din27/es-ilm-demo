@@ -34,7 +34,7 @@ import java.util.Map;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class EsIlmService {
+public class MessageIlmService {
 
   private static final String DATA_STREAM_NAME = "messages";
   private static final String ILM_POLICY_NAME = DATA_STREAM_NAME + "_policy";
@@ -42,7 +42,7 @@ public class EsIlmService {
 
   private static final String URL_ILM_POLICY = "/_ilm/policy/" + ILM_POLICY_NAME;
   private static final String URL_INDEX_TEMPLATE = "/_index_template/" + INDEX_TEMPLATE_NAME;
-  private static final String URL_DOCUMENT = String.format("/%s/_doc", DATA_STREAM_NAME);
+  private static final String URL_DOCUMENT = String.format("/%s/_doc?refresh=wait_for", DATA_STREAM_NAME);
 
   private static final String PHASE_NAME_HOT = "hot";
   private static final String PHASE_NAME_WARM = "warm";
@@ -64,7 +64,12 @@ public class EsIlmService {
   public void startIlm() {
     saveIlmPolicy();
     createIndexTemplate();
-    saveTestDocument(); // TODO
+
+    // TODO
+    saveTestDocument();
+    log.debug("message: " + messageRepository.findAll().iterator().next());
+    Thread.sleep(30*1000);
+    sendRequestWithLowLevelClient(HttpMethod.GET.toString(), ".ds-messages-*/_ilm/explain?human", null);
   }
 
   private void saveIlmPolicy() throws IOException {
